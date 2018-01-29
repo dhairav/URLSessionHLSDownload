@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13772" systemVersion="17D47" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Master" representedClassName="Master" syncable="YES" codeGenerationType="class">
+        <attribute name="downloadLocation" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="downloadUrl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isDownloaded" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="segmentCount" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="slug" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="totalDownloadSize" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Segment" representedClassName="Segment" syncable="YES" codeGenerationType="class">
+        <attribute name="cryptKeyUrl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="segmentDownloadUrl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="segmentIsDownloaded" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Master" positionX="-63" positionY="-18" width="128" height="135"/>
+        <element name="Segment" positionX="-54" positionY="18" width="128" height="90"/>
+    </elements>
+</model>

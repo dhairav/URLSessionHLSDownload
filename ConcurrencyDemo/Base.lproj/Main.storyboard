@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="8hN-dh-C7O">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="8hN-dh-C7O">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -13,32 +13,71 @@
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="ConcurrencyDemo" customModuleProvider="target" sceneMemberID="viewController">
-                    <button key="view" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="i4a-gy-aI8">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Vk4-je-jUj"/>
+                        <viewControllerLayoutGuide type="bottom" id="UDj-0T-uBm"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Tt2-bb-idU">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="559"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <state key="normal" title="Play"/>
-                        <connections>
-                            <action selector="playContent:" destination="BYZ-38-t0r" eventType="touchUpInside" id="r6S-bA-6Wz"/>
-                        </connections>
-                    </button>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uwv-BG-9g0">
+                                <rect key="frame" x="170" y="48" width="34" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Start"/>
+                                <connections>
+                                    <action selector="didClickOnStartWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1Gj-sp-aK4"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FJZ-xL-Ynz">
+                                <rect key="frame" x="172" y="202" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Play"/>
+                                <connections>
+                                    <action selector="playContent:" destination="BYZ-38-t0r" eventType="touchUpInside" id="JQf-JC-0b6"/>
+                                </connections>
+                            </button>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" fixedFrame="YES" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Ve3-s9-cqQ">
+                                <rect key="frame" x="16" y="478" width="343" height="2"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </progressView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="progressText" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jct-M6-ikr">
+                                <rect key="frame" x="71" y="438" width="232" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PP7-E6-03R">
+                                <rect key="frame" x="127" y="310" width="121" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Pause"/>
+                                <connections>
+                                    <action selector="didClickOnPause:" destination="BYZ-38-t0r" eventType="touchUpInside" id="JYF-pP-X9h"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" id="740-DU-CFc">
-                        <barButtonItem key="rightBarButtonItem" title="Start" id="BUt-RJ-v1h">
-                            <connections>
-                                <action selector="didClickOnStartWithSender:" destination="BYZ-38-t0r" id="eJF-WS-zam"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="740-DU-CFc"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="pauseButton" destination="PP7-E6-03R" id="d1t-fc-bhq"/>
+                        <outlet property="progressLabel" destination="jct-M6-ikr" id="nrJ-18-GhW"/>
+                        <outlet property="progressView" destination="Ve3-s9-cqQ" id="XjP-A3-qmJ"/>
+                        <outletCollection property="progressView" destination="Tt2-bb-idU" collectionClass="NSMutableArray" id="FeY-X1-V9x"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1117" y="362"/>
+            <point key="canvasLocation" x="697.5" y="401.5"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="y4g-3Y-IEG">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EAl-bu-dAA" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="8hN-dh-C7O" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="jeq-3p-z8B">
@@ -50,9 +89,8 @@
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="4k0-z7-7nG"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="EAl-bu-dAA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="305" y="362"/>
+            <point key="canvasLocation" x="190.625" y="402.42333333333329"/>
         </scene>
     </scenes>
 </document>

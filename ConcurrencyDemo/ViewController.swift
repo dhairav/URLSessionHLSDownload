@@ -2,8 +2,8 @@
 //  ViewController.swift
 //  ConcurrencyDemo
 //
-//  Created by Hossam Ghareeb on 11/15/15.
-//  Copyright © 2015 Hossam Ghareeb. All rights reserved.
+//  Created by Dhairav Mehta on 11/15/15.
+//  Copyright © 2015 Dhairav Mehta. All rights reserved.
 //
 import UIKit
 import Pantomime
@@ -12,7 +12,7 @@ import AVKit
 import GCDWebServer
 
 let builder = ManifestBuilder()
-var masterUrl = URL(string: "http://drm01.sboxdc.com/sample_media/hls_enc/master.m3u8")
+var masterUrl = URL(string: "https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8")
 var manifest = builder.parse(masterUrl!)
 let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
 var localDownloadUrl = documentsPath.appendingPathComponent("Sample", isDirectory: true)

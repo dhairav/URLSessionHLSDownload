@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		57C9D962B6E21B5AB90F155C /* Pods_ConcurrencyDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88CE292B29E0F316A4A2FE4B /* Pods_ConcurrencyDemo.framework */; };
+		7B18A4D820AD4FBF00639888 /* DownloadTaskModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B18A4D720AD4FBF00639888 /* DownloadTaskModel.swift */; };
 		7BAE1105201F724B00654B71 /* DownloadModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7BAE1103201F724B00654B71 /* DownloadModel.xcdatamodeld */; };
 		DA0283911BF90DA900AA4DAC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0283901BF90DA900AA4DAC /* AppDelegate.swift */; };
 		DA0283931BF90DA900AA4DAC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0283921BF90DA900AA4DAC /* ViewController.swift */; };
@@ -19,6 +20,7 @@
 /* Begin PBXFileReference section */
 		19F92F9A182E64B1E9D608BA /* Pods-ConcurrencyDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ConcurrencyDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ConcurrencyDemo/Pods-ConcurrencyDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		1ACC9A0276AEFB701C4AE92E /* Pods-ConcurrencyDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ConcurrencyDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-ConcurrencyDemo/Pods-ConcurrencyDemo.release.xcconfig"; sourceTree = "<group>"; };
+		7B18A4D720AD4FBF00639888 /* DownloadTaskModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadTaskModel.swift; sourceTree = "<group>"; };
 		7BAE1104201F724B00654B71 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		88CE292B29E0F316A4A2FE4B /* Pods_ConcurrencyDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ConcurrencyDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA02838D1BF90DA900AA4DAC /* ConcurrencyDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ConcurrencyDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -87,6 +89,7 @@
 				DA0283991BF90DA900AA4DAC /* LaunchScreen.storyboard */,
 				DA02839C1BF90DA900AA4DAC /* Info.plist */,
 				7BAE1103201F724B00654B71 /* DownloadModel.xcdatamodeld */,
+				7B18A4D720AD4FBF00639888 /* DownloadTaskModel.swift */,
 			);
 			path = ConcurrencyDemo;
 			sourceTree = "<group>";
@@ -120,7 +123,7 @@
 		DA0283851BF90DA900AA4DAC /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "Hossam Ghareeb";
 				TargetAttributes = {
 					DA02838C1BF90DA900AA4DAC = {
@@ -229,6 +232,7 @@
 			files = (
 				DA0283931BF90DA900AA4DAC /* ViewController.swift in Sources */,
 				DA0283911BF90DA900AA4DAC /* AppDelegate.swift in Sources */,
+				7B18A4D820AD4FBF00639888 /* DownloadTaskModel.swift in Sources */,
 				7BAE1105201F724B00654B71 /* DownloadModel.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -267,12 +271,14 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -320,12 +326,14 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;

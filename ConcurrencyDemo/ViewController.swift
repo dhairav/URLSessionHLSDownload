@@ -2,8 +2,8 @@
 //  ViewController.swift
 //  ConcurrencyDemo
 //
-//  Created by Hossam Ghareeb on 11/15/15.
-//  Copyright © 2015 Hossam Ghareeb. All rights reserved.
+//  Created by Dhairav Mehta on 25/01/2018.
+//  Copyright © 2018 Dhairav Mehta. All rights reserved.
 //
 import UIKit
 import Pantomime
@@ -16,6 +16,8 @@ var masterUrl = URL(string: "http://drm01.sboxdc.com/sample_media/hls_enc/master
 var manifest = builder.parse(masterUrl!)
 let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
 var localDownloadUrl = documentsPath.appendingPathComponent("Sample", isDirectory: true)
+let tempPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+var localTempUrl = tempPath.appendingPathComponent("Temp", isDirectory: true)
 var completedDownloadsCount = 0
 var totalSegmentCount: Int? = nil
 var canPlayBack = false
@@ -31,10 +33,13 @@ class ViewController: UIViewController, URLSessionTaskDelegate, URLSessionDownlo
     @IBOutlet weak var progressLabel: UILabel!
     @IBOutlet weak var progressView: UIProgressView!
     @IBOutlet weak var pauseButton: UIButton!
+    var resumeDataArray: [Data]?
     
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
         
         let segmentFilePath = localDownloadUrl.appendingPathComponent((downloadTask.response?.url?.lastPathComponent)!)
+        
+        print(downloadTask.response!)
         
         do {
             if FileManager.default.fileExists(atPath: segmentFilePath.absoluteString) {
@@ -85,7 +90,6 @@ class ViewController: UIViewController, URLSessionTaskDelegate, URLSessionDownlo
                 self.progressView.setProgress(Float(progress), animated: true)
                 let progressToDisplay = (progress * 100).rounded()
                 self.progressLabel.text = "progress: \(progressToDisplay)%"
-                
             }
         }
     }
@@ -102,28 +106,39 @@ class ViewController: UIViewController, URLSessionTaskDelegate, URLSessionDownlo
     
     @IBAction func didClickOnPause(_ sender: Any) {
         if isDownloading {
-           
             session?.getAllTasks(completionHandler: { (tasks) in
-                for task in tasks {
-                    task.suspend()
+                session?.getTasksWithCompletionHandler({ (sessiondataDaskArray, sessionUploadTaskArray, sessionDownloadTaskArray) in
+                    for task in sessionDownloadTaskArray {
+                        task.cancel(byProducingResumeData: { (resumeData) in
+                            let tempPath = localTempUrl.appendingPathComponent((task.response?.url?.lastPathComponent)!)
+                            self.writeResumedDataInLocalStorage(filePath: tempPath, resumeData: resumeData!)
+                        })
+                    }
+                })
+                isDownloading = false
+                canPlayBack = false
+                DispatchQueue.main.async {
+                    self.pauseButton.setTitle("Resume", for: .normal)
                 }
             })
-            isDownloading = false
-            canPlayBack = false
-            pauseButton.setTitle("Resume", for: .normal)
         }else if canPlayBack {
-            let alert = UIAlertController(title: "Alert", message: "Content Already downnloaded", preferredStyle: UIAlertControllerStyle.alert)
+            let alert = UIAlertController(title: "Alert", message: "Content Already downloaded", preferredStyle: UIAlertControllerStyle.alert)
             alert.addAction(UIAlertAction(title: "Click", style: UIAlertActionStyle.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
         }else if !canPlayBack && (pauseButton.currentTitle?.contains("Resume"))! {
+            session?.getTasksWithCompletionHandler({ (sessionDataTaskArray, sessionUploadTaskArray, sessionDownloadTaskArray) in
+                
+            })
             session?.getAllTasks(completionHandler: { (tasks) in
                 for task in tasks {
                     task.resume()
                 }
+                isDownloading = true
+                canPlayBack = false
+                DispatchQueue.main.async {
+                    self.pauseButton.setTitle("Pause", for: .normal)
+                }
             })
-            isDownloading = true
-            canPlayBack = false
-            pauseButton.setTitle("Pause", for: .normal)
         }
     }
     
@@ -149,39 +164,12 @@ class ViewController: UIViewController, URLSessionTaskDelegate, URLSessionDownlo
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        let masterString = try! String.init(contentsOf: localDownloadUrl.appendingPathComponent("master.m3u8"), encoding: .utf8)
-//
-//        let masterStringArray: [String] = masterString.components(separatedBy: CharacterSet.newlines)
-//
-//        var newMasterString: String = ""
-//
-//        var copyNext: Bool = false
-//        for line in masterStringArray {
-//            if (copyNext == true) {
-//                newMasterString.append("\(line)\n")
-//                copyNext = false
-//            }
-//            else if (line.starts(with: "#EXT-X-STREAM-INF") && line.contains("720")) {
-//                newMasterString.append("\(line)\n");
-//                copyNext = true
-//            }
-//            else {
-//                if line.starts(with: "#") && !line.contains("RESOLUTION") {
-//                    newMasterString.append("\(line)\n")
-//                }
-//            }
-//        }
-//
-//        do {
-//            try FileManager.default.removeItem(at: localDownloadUrl.appendingPathComponent("master.m3u8"))
-//
-//            try newMasterString.write(toFile: localDownloadUrl.appendingPathComponent("master.m3u8").path, atomically: true, encoding: .utf8)
-//
-//        }catch {
-//            print(error.localizedDescription)
-//        }
-//
         
+        sessionConfig.allowsCellularAccess = true
+        
+        session = URLSession(configuration: sessionConfig, delegate: self, delegateQueue: OperationQueue())
+        session?.downloadTask(with: masterUrl!).resume()
+
         // Do any additional setup after loading the view, typically from a nib.
     }
     
@@ -189,6 +177,7 @@ class ViewController: UIViewController, URLSessionTaskDelegate, URLSessionDownlo
         
         sessionConfig.allowsCellularAccess = false
         sessionConfig.httpMaximumConnectionsPerHost = 5
+        
         session = URLSession(configuration: sessionConfig, delegate: self, delegateQueue: OperationQueue())
         
         do {
@@ -199,6 +188,27 @@ class ViewController: UIViewController, URLSessionTaskDelegate, URLSessionDownlo
             print(error.localizedDescription)
         }
         
+    }
+    
+    //When user pauses download write the partially downloaded data into document directory in order to resume download after app restart
+    func writeResumedDataInLocalStorage(filePath: URL, resumeData: Data)
+    {
+        let fileManager = FileManager.default
+        
+        //remove existing content if any from the filepath and write new one
+        try? fileManager.removeItem(at: filePath)
+        do {
+            try resumeData.write(to: filePath)
+        }
+        catch let error {
+            print("Could not copy file to disk: \(error.localizedDescription)")
+        }
+    }
+    
+    //get filepath url for downloading file into documents directory
+    func getFilePath(for url: URL) -> URL{
+        let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        return documentsPath.appendingPathComponent(url.lastPathComponent)
     }
     
     @IBAction func playContent(_ sender: Any) {
